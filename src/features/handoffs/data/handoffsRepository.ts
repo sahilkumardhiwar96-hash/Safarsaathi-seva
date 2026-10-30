@@ -1,0 +1,2 @@
+import { supabase } from '@/lib/supabase';
+export const handoffsRepository = { list: () => supabase.from('handoffs').select('*, child:children(*), from_center:centers!from_center_id(*), to_center:centers!to_center_id(*)').order('handoff_date',{ascending:true}), updateStatus: (id:string,status:'pending'|'completed'|'cancelled',completedBy:string|null) => supabase.from('handoffs').update({status,completed_by:completedBy}).eq('id',id) };
